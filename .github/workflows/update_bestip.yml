@@ -33,7 +33,7 @@ jobs:
          branch: main
          commit_user_name: xj888xj
          commit_user_email: ${{ secrets.EMAIL }}
-         commit_author: hubbylei <${{ secrets.EMAIL }}>
+         commit_author: xj888xj <${{ secrets.EMAIL }}>
 
       - name: Delete workflow runs
         uses: Mattraks/delete-workflow-runs@main
