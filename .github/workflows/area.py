@@ -103,7 +103,7 @@ def delete_dns_record(country_code, record_id):
         pass  # 忽略错误
 
 def main():
-    domains = ["bestcf.hubbylei.us.kg"]
+    domains = ["bestcf"]
 
     print("Scanning proxy IPs from various countries...")
 
