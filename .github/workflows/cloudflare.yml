@@ -30,13 +30,13 @@ jobs:
         run: ./CloudflareST -tp 443 -n 1000 -tlr 0
 
       - name: convert_csv_to_tls
-        run: python convert_csv_to_tls.py
+        run: python .github/workflows/convert_csv_to_tls.py
 
       - name: notls
         run: ./CloudflareST -tp 80 -n 1000 -tlr 0
 
       - name: convert_csv_to_notls
-        run: python convert_csv_to_tls.py notls
+        run: python .github/workflows/convert_csv_to_tls.py notls
 
       - name: Commit and push changes
         env:
