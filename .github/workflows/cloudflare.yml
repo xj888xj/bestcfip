@@ -1,0 +1,49 @@
+name: Cloudflare SpeedTest
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download IP list
+        run: wget -O ip.txt https://www.cloudflare-cn.com/ips-v4/#
+
+      - name: Make script executable
+        run: chmod +x CloudflareST
+
+      - name: TLS
+        run: ./CloudflareST -tp 443 -n 1000 -tlr 0
+
+      - name: convert_csv_to_tls
+        run: python convert_csv_to_tls.py
+
+      - name: notls
+        run: ./CloudflareST -tp 80 -n 1000 -tlr 0
+
+      - name: convert_csv_to_notls
+        run: python convert_csv_to_tls.py notls
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add *.txt
+          git commit -m "Update IP list"
+          git push
