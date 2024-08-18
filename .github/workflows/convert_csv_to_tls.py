@@ -15,7 +15,7 @@ def get_location(ip):
         return None
 
 def convert_csv_to_tls(csv_filename, TLS, notls=False):
-    output_filename = 'notls.txt' if notls else TLS
+    output_filename = 'yxip-notls.txt' if notls else TLS
     with open(csv_filename, 'r', encoding='utf-8') as infile, open(output_filename, 'w', encoding='utf-8') as outfile:
         reader = csv.reader(infile)
         next(reader)  # Skip header row
@@ -36,6 +36,6 @@ def convert_csv_to_tls(csv_filename, TLS, notls=False):
 
 if __name__ == "__main__":
     csv_filename = 'result.csv'
-    TLS = 'TLS.txt'
-    notls = False if len(sys.argv) < 2 else 'notls.txt'
+    TLS = 'yxip-TLS.txt'
+    notls = False if len(sys.argv) < 2 else 'yxip-notls.txt'
     convert_csv_to_tls(csv_filename, TLS, notls)
